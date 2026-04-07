@@ -13,5 +13,5 @@ if [[ ! -d "$1" ]]; then
     exit 1
 fi
 
-sort_files=$(ls -lS "$1"/*.txt 2>/dev/null | tail -r)
+sort_files=$(ls -lSh "$1"/*.txt 2>/dev/null | tail -r | awk '{ print $5, $9'} )
 echo "$sort_files"
