@@ -1,0 +1,26 @@
+#!/bin/bash
+
+# Level 9: Script to Monitor Directory Changes
+# Mission: Write a script that monitors a directory for any changes (file creation, modification, or deletion) and logs the changes with a timestamp.
+
+Directory="$1"
+MY_LOG="log_changes.txt"
+
+if [[ -z "$Directory" ]]; then
+    echo "no input written"
+    exit 1
+fi
+
+if [[ ! -d "$Directory" ]]; then
+    echo "directory does not exist"
+    exit 1
+fi
+
+fswatch -r "$Directory" | while read line; do
+
+if [[ -e "$line" ]]; then
+    echo "$(date +'%Y-%m-%d %H:%M:%S') File modified/created: $line" >> "$MY_LOG"
+else 
+    echo "$(date +'%Y-%m-%d %H:%M:%S') File deleted: $line" >> "$MY_LOG"
+fi
+done
