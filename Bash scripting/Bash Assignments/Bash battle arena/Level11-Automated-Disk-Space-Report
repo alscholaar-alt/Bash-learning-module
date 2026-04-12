@@ -1,0 +1,13 @@
+#!/bin/bash
+
+# Level 11: Automated Disk Space Report
+
+# Mission: Create a script that checks the disk space usage of a specified directory and sends an alert if the usage exceeds a given threshold.
+
+directory="$1"
+threshold_limit="$2"
+Check_disk_usage=$(du -s "$directory" | awk '{ print $1 }')
+
+if [[ $Check_disk_usage -gt $threshold_limit ]]; then
+    echo "threshold limit exceeded"
+fi
