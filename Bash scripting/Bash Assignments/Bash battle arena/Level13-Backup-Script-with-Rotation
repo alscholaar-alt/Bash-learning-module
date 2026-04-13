@@ -1,0 +1,20 @@
+#!/bin/bash
+
+# Level 13: Backup Script with Rotation
+
+# Mission: Create a script that backs up a directory to a specified location and keeps only the last 5 backups.
+
+directory="$1"
+backup_directory="$2"
+
+mkdir $backup_directory
+
+timestamp=$(date +"%m-%d-%Y_%H:%M:%S")
+
+cp -r "$directory" "${directory}_backup_$timestamp"
+
+mv "${directory}_backup_$timestamp" $backup_directory
+
+cd $backup_directory
+
+rm -r $(ls -t $backup_directory | tail -n +6)
