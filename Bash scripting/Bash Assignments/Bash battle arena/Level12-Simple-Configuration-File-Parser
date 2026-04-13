@@ -1,0 +1,14 @@
+#!/bin/bash
+
+# Level 12: Simple Configuration File Parser
+
+# Mission: Write a script that reads a configuration file in the format KEY=VALUE and prints each key-value pair.
+
+config_file="$1"
+
+if [ ! -f "$config_file" ]; then
+    echo "Configuration file does not exist."
+    exit 1
+fi
+
+awk -F "=" '{ print "key:" $1,"," "value:" $2}' "$config_file"
