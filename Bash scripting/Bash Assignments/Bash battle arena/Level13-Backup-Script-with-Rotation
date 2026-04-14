@@ -6,15 +6,15 @@
 
 directory="$1"
 backup_directory="$2"
-
-mkdir $backup_directory
-
+mkdir -p $backup_directory
 timestamp=$(date +"%m-%d-%Y_%H:%M:%S")
+backup_name=${directory}_backup_$timestamp.tar.gz
+tar -czf "$backup_name" "$directory" 
 
-cp -r "$directory" "${directory}_backup_$timestamp"
+mv "$backup_name" $backup_directory
 
-mv "${directory}_backup_$timestamp" $backup_directory
+echo "Created backup: $backup_name and moved to $backup_directory"
 
 cd $backup_directory
 
-rm -r $(ls -t $backup_directory | tail -n +6)
+rm -r $(ls -t | tail -n +6)
